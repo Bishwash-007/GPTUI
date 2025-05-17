@@ -39,7 +39,7 @@ const ChatScreen = () => {
   };
 
   return (
-    <View className="flex-1 bg-white items-center justify-center mb-2">
+    <View className="flex-1 items-center justify-center mb-2">
       <ScrollView
         className="flex-1 p-4"
         contentContainerStyle={{ paddingBottom: 20 }}

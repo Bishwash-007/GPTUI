@@ -5,10 +5,20 @@ import {
   Animated,
   Easing,
   Dimensions,
+  FlatList,
 } from "react-native";
 import React, { useEffect, useRef } from "react";
-import { Link } from "expo-router";
+import { router } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import ChatHistoryItem from "./ChatHistory";
+
+const UserName = "John Doe"; // Replace with actual user name
+
+const ChatHistoryData = [
+  { id: "1", label: "Chat 1", href: "chat/[1]" },
+  { id: "2", label: "Chat 2", href: "chat/[2]" },
+  { id: "3", label: "Chat 3", href: "chat/[3]" },
+];
 
 type BurgerProps = {
   onClose: () => void;
@@ -86,29 +96,37 @@ const Burger = ({ onClose }: BurgerProps) => {
               <Ionicons name="close" size={28} color="#1f2937" />
             </TouchableOpacity>
 
-            <Text className="text-base text-gray-500 mb-3">Chat History</Text>
-            <Link href="/" className="py-2">
-              <Text className="text-lg text-gray-900 font-medium">
-                Dont Press Not Implemented
-              </Text>
-            </Link>
-            <Link href="/" className="py-2">
-              <Text className="text-lg text-gray-900 font-medium">
-                Dont Press Not Implemented
-              </Text>
-            </Link>
-            <Link href="/" className="py-2">
-              <Text className="text-lg text-gray-900 font-medium">
-                Dont Press Not Implemented
-              </Text>
-            </Link>
+            <FlatList
+              data={ChatHistoryData}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <ChatHistoryItem
+                  label={item.label}
+                  href={item.href}
+                />
+              )}
+            />
           </View>
 
           {/* Bottom: Profile & Settings */}
-          <View className="flex-row items-center justify-between">
-            <Link href="/profile" className="py-3">
-              <Text className="text-lg text-gray-900 font-medium">Profile</Text>
-            </Link>
+          <View className="items-center justify-between flex flex-row border-t border-gray-200 my-4">
+            <TouchableOpacity
+              className="py-3"
+              onPress={() => router.push("/profile")}
+            >
+              <View className="flex-row items-center">
+                <Text className="text-lg text-gray-900 font-medium">
+                  {UserName}
+                </Text>
+                <Ionicons
+                  name="chevron-forward-outline"
+                  size={22}
+                  color="#1f2937"
+                  style={{ marginLeft: 5 }}
+                />
+              </View>
+            </TouchableOpacity>
+
             <TouchableOpacity className="py-3">
               <Ionicons name="settings-outline" size={22} color="#1f2937" />
             </TouchableOpacity>

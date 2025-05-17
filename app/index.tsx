@@ -1,17 +1,29 @@
-import { StatusBar, View } from "react-native";
-import ChatScreen from "@/components/ChatScreen";
-import Header from "@/components/Header";
-import React from "react";
-import Burger from "@/components/Burger";
+import React, { useEffect } from "react";
+import { View, Text, ActivityIndicator } from "react-native";
+import { router } from "expo-router";
 
-export default function Index() {
-  const [menuVisible, setMenuVisible] = React.useState(false);
+const Index = () => {
+  
+  const isLoggedIn = true; 
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (isLoggedIn) {
+        router.replace("/chats"); 
+      } else {
+        router.replace("/signin");
+      }
+    }, 500); 
+
+    return () => clearTimeout(timer);
+  }, [isLoggedIn]);
+
   return (
-    <View className="flex-1 bg-white w-full">
-      <Header title="Edith" onMenuPress={() => setMenuVisible(true)} />
-      <ChatScreen />
-      {menuVisible && <Burger onClose={() => setMenuVisible(false)} />}
-      <StatusBar barStyle="dark-content" />
+    <View className="flex-1 justify-center items-center bg-backgroundLight dark:bg-backgroundDark">
+      <ActivityIndicator size="large" />
+      <Text className="text-gray-500 mt-4">Checking session...</Text>
     </View>
   );
-}
+};
+
+export default Index;

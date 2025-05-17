@@ -10,15 +10,15 @@ const InputField = ({ onPress }: InputFieldProps) => {
   const [text, setText] = React.useState("");
 
   return (
-    <View className="flex flex-col items-start justify-center w-[400px] px-6 py-2 bg-white border-t border-gray-100">
+    <View className="flex flex-col items-start justify-center w-[400px] px-6 py-2 border-t border-gray-50">
       {/* Input Container */}
       <View className="flex flex-row items-center w-full mt-2 rounded-xl px-3">
         <TextInput
-          className="flex-1 text-base text-gray-800"
+          className="flex-1 text-base text-white"
           onChangeText={setText}
           value={text}
           placeholder="Ask me anything..."
-          placeholderTextColor="#94a3b8"
+          placeholderTextColor="#ffffff"
           multiline
           numberOfLines={2}
           autoCorrect={false}
@@ -35,13 +35,13 @@ const InputField = ({ onPress }: InputFieldProps) => {
       <View className="flex flex-row items-center justify-between w-full mt-3">
         <View className="flex flex-row gap-1">
           <TouchableOpacity className="p-2 rounded-full justify-start">
-            <Ionicons name="add-outline" size={22} color="#1e293b" />
+            <Ionicons name="add-outline" size={22} color="#ffffff" />
           </TouchableOpacity>
           <TouchableOpacity className="p-2 rounded-full ">
-            <Ionicons name="globe-outline" size={22} color="#1e293b" />
+            <Ionicons name="globe-outline" size={22} color="#ffffff" />
           </TouchableOpacity>
           <TouchableOpacity className="p-2 rounded-full">
-            <Ionicons name="telescope-outline" size={22} color="#1e293b" />
+            <Ionicons name="telescope-outline" size={22} color="#ffffff" />
           </TouchableOpacity>
         </View>
 
@@ -53,7 +53,7 @@ const InputField = ({ onPress }: InputFieldProps) => {
             }}
             className="p-2 rounded-full"
           >
-            <Ionicons name="mic-outline" size={22} color="#1e293b" />
+            <Ionicons name="mic-outline" size={22} color="#ffffff" />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -65,7 +65,7 @@ const InputField = ({ onPress }: InputFieldProps) => {
             <Ionicons
               name="arrow-up-circle-outline"
               size={22}
-              color="#1e293b"
+              color="#ffffff"
             />
           </TouchableOpacity>
         </View>

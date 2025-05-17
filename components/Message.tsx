@@ -55,7 +55,7 @@ const Message = ({ isBot, message }: MessageProps) => {
         <View className="flex-row items-center">
           <Text
             className={`text-base font-medium ${
-              isBot ? "text-gray-800" : "text-gray-800"
+              isBot ? "text-white" : "text-white"
             }`}
             selectable
           >
