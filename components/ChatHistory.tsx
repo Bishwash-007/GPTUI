@@ -1,19 +1,35 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
-
 import type { LinkProps } from "expo-router";
+import { useTheme } from "@/context/ThemeContext";
 
-const ChatHistoryItem = ({
-  label,
-  href = "/",
-}: {
+type ChatHistoryItemProps = {
   label: string;
-  href: LinkProps["href"];
-}) => {
+  href?: LinkProps["href"];
+  onPress?: () => void;
+};
+
+const ChatHistoryItem = ({ label, href = "/", onPress }: ChatHistoryItemProps) => {
+  const { colors } = useTheme();
+
+  const labelText = (
+    <Text className="text-lg font-medium" style={{ color: colors.text }}>
+      {label}
+    </Text>
+  );
+
+  if (onPress) {
+    return (
+      <TouchableOpacity onPress={onPress} className="py-4 ">
+        {labelText}
+      </TouchableOpacity>
+    );
+  }
+
   return (
-    <Link href={href} className="py-2">
-      <Text className="text-lg text-gray-900 font-medium">{label}</Text>
+    <Link href={href} asChild>
+      <TouchableOpacity className="py-4">{labelText}</TouchableOpacity>
     </Link>
   );
 };

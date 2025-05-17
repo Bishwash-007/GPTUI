@@ -1,13 +1,17 @@
-import { View, Text } from "react-native";
+import { useTheme } from "@/context/ThemeContext";
 import React, { useEffect, useState } from "react";
+import { Text, View } from "react-native";
 import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 
 type MessageProps = {
   isBot: boolean;
   message: string;
+  timestamp: number;
+  status?: 'sending' | 'sent' | 'error';
 };
 
-const Message = ({ isBot, message }: MessageProps) => {
+const Message = ({ isBot, message, timestamp, status }: MessageProps) => {
+  const { colors } = useTheme();
   const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
@@ -44,9 +48,10 @@ const Message = ({ isBot, message }: MessageProps) => {
       <Animated.View
         entering={isBot ? FadeInDown.duration(400) : undefined}
         className={`max-w-[95%] p-3 rounded-lg ${
-          isBot ? " rounded-tl-none " : " rounded-tr-none "
+          isBot ? "rounded-tl-none" : "rounded-tr-none"
         }`}
         style={{
+          backgroundColor: isBot ? colors.card : colors.background,
           shadowOpacity: 0.05,
           shadowRadius: 3,
           shadowOffset: { width: 0, height: 2 },
@@ -54,9 +59,8 @@ const Message = ({ isBot, message }: MessageProps) => {
       >
         <View className="flex-row items-center">
           <Text
-            className={`text-base font-medium ${
-              isBot ? "text-white" : "text-white"
-            }`}
+            className="text-base font-medium"
+            style={{ color: colors.text }}
             selectable
           >
             {displayedText}
@@ -65,6 +69,7 @@ const Message = ({ isBot, message }: MessageProps) => {
             <Animated.View
               entering={FadeIn.duration(100)}
               className="ml-1 h-5 w-[2px]"
+              style={{ backgroundColor: colors.text }}
             />
           )}
         </View>

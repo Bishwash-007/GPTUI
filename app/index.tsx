@@ -1,27 +1,37 @@
-import React, { useEffect } from "react";
-import { View, Text, ActivityIndicator } from "react-native";
+import { useAuth } from "@/context/AuthContext";
+import { useTheme } from "@/context/ThemeContext";
 import { router } from "expo-router";
+import React, { useEffect } from "react";
+import { ActivityIndicator, Text, View } from "react-native";
 
 const Index = () => {
-  
-  const isLoggedIn = true; 
+  const { isAuthenticated, isLoading } = useAuth();
+  const { colors } = useTheme();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (isLoggedIn) {
-        router.replace("/chats"); 
+      if (isAuthenticated) {
+        router.replace(`/(chat)/Edith`);
       } else {
-        router.replace("/signin");
+        router.replace("/onboarding");
       }
-    }, 500); 
+    }, 500);
 
     return () => clearTimeout(timer);
-  }, [isLoggedIn]);
+  }, [isAuthenticated]);
 
   return (
-    <View className="flex-1 justify-center items-center bg-backgroundLight dark:bg-backgroundDark">
-      <ActivityIndicator size="large" />
-      <Text className="text-gray-500 mt-4">Checking session...</Text>
+    <View 
+      className="flex-1 justify-center items-center"
+      style={{ backgroundColor: colors.background }}
+    >
+      <ActivityIndicator size="large" color={colors.primary} />
+      <Text 
+        className="mt-4"
+        style={{ color: colors.text }}
+      >
+        {isLoading ? "Checking session..." : "Loading..."}
+      </Text>
     </View>
   );
 };
